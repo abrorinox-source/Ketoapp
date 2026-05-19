@@ -1,0 +1,24 @@
+.idea/
+.gradle/
+local.properties
+*.iml
+
+# Build outputs
+build/
+**/build/
+
+# APK/AAB outputs
+*.apk
+*.aab
+*.ap_
+
+# Logs
+*.log
+
+# Keystores (keep your signing keys out of git)
+*.jks
+*.keystore
+
+# OS files
+.DS_Store
+Thumbs.db
