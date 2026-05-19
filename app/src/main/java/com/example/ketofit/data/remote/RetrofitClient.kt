@@ -1,6 +1,9 @@
 package com.example.ketofit.data.remote
 
-object RetrofitClient {
-    val apiService: ApiService = ApiService()
-}
+import com.example.ketofit.data.local.UserPreferences
 
+object RetrofitClient {
+    fun createApiService(userPreferences: UserPreferences): ApiService {
+        return ApiService(userPreferences)
+    }
+}
