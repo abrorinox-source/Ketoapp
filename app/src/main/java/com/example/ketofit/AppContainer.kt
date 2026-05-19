@@ -16,7 +16,7 @@ class AppContainer(context: Context) {
         context.getSharedPreferences("ketofit_prefs", Context.MODE_PRIVATE)
 
     val userPreferences = UserPreferences(sharedPreferences)
-    val apiService = ApiService()
+    val apiService = ApiService(userPreferences)
 
     val authRepository = AuthRepository(apiService, userPreferences)
     val userRepository = UserRepository(apiService, userPreferences)
@@ -26,4 +26,3 @@ class AppContainer(context: Context) {
 
     val viewModelFactory = KetoViewModelFactory(this)
 }
-
