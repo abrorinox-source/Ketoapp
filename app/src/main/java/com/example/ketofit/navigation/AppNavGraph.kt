@@ -8,7 +8,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.ketofit.AppContainer
 import com.example.ketofit.ui.main.MainScaffold
-import com.example.ketofit.ui.onboarding.AccessCodeScreen
 import com.example.ketofit.ui.onboarding.GoalSelectionScreen
 import com.example.ketofit.ui.onboarding.LanguageScreen
 import com.example.ketofit.ui.onboarding.ProfileSetupScreen
@@ -18,11 +17,11 @@ fun AppNavGraph(
     container: AppContainer,
     navController: NavHostController = rememberNavController(),
 ) {
-    val initialRoute = remember(container.userPreferences.onboardingCompleted, container.userPreferences.subscriptionActive) {
-        when {
-            !container.userPreferences.onboardingCompleted -> Routes.LANGUAGE
-            container.userPreferences.subscriptionActive -> Routes.MAIN
-            else -> Routes.ACCESS_CODE
+    val initialRoute = remember(container.userPreferences.onboardingCompleted) {
+        if (container.userPreferences.onboardingCompleted) {
+            Routes.MAIN
+        } else {
+            Routes.LANGUAGE
         }
     }
 
@@ -33,13 +32,7 @@ fun AppNavGraph(
         composable(Routes.LANGUAGE) {
             LanguageScreen(
                 container = container,
-                onContinue = { navController.navigate(Routes.ACCESS_CODE) },
-            )
-        }
-        composable(Routes.ACCESS_CODE) {
-            AccessCodeScreen(
-                container = container,
-                onSuccess = { navController.navigate(Routes.PROFILE_SETUP) },
+                onContinue = { navController.navigate(Routes.PROFILE_SETUP) },
             )
         }
         composable(Routes.PROFILE_SETUP) {
